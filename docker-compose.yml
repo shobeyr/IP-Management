@@ -1,11 +1,10 @@
 version: '3.8'
 services:
-  web:
+  ip_management:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - .:/code
     ports:
-      - "8000:8000"
+      - "5000:5000"
+    volumes:
+      - ./data:/app/data
     environment:
-      - DJANGO_SETTINGS_MODULE=app.settings
+      - FLASK_ENV=development
