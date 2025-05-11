@@ -1,16 +1,13 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 db = SQLAlchemy()
+migrate = Migrate()
 
 def create_app():
     app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data/ip_management.db'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../data/ip_management.db'
     db.init_app(app)
-
-    from .routes import main_bp
-    app.register_blueprint(main_bp)
-
+    migrate.init_app(app, db)
     return app
