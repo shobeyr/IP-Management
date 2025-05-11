@@ -1,0 +1,11 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+.container {
+    max-width: 700px;
+    margin: 20px auto;
+}
+input, select, textarea, button {
+    margin: 5px;
+}

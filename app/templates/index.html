@@ -1,17 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="fa">
 <head>
-    <title>Abalon IP Management</title>
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
-    <script src="{% static 'js/scripts.js' %}"></script>
+    <title>IP Management</title>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <h1>Welcome to Abalon IP Management</h1>
-    <div>
-        <input id="searchBox" placeholder="Search..." oninput="searchData()" style="width: 300px; padding: 8px;">
-        <button onclick="addGroup()">Add Group</button>
-        <div id="results" style="margin-top: 20px;"></div>
+    <div class="container">
+        <h1>IP Management</h1>
+        <input type="text" id="search-box" placeholder="Search..." onkeyup="searchIP()">
+
+        <form action="/add_group" method="POST">
+            <input type="text" name="group_name" placeholder="Group Name">
+            <button type="submit">Add Group</button>
+        </form>
+
+        <form action="/add_ip" method="POST">
+            <select name="group_id">
+                {% for group in groups %}
+                    <option value="{{ group.id }}">{{ group.name }}</option>
+                {% endfor %}
+            </select>
+            <input type="text" name="server_name" placeholder="Server Name">
+            <input type="text" name="ip_public" placeholder="IP Public">
+            <input type="text" name="ip_private" placeholder="IP Private">
+            <input type="text" name="dc" placeholder="DC">
+            <textarea name="description" placeholder="Description"></textarea>
+            <button type="submit">Add IP</button>
+        </form>
     </div>
 </body>
 </html>

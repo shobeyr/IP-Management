@@ -1,18 +1,14 @@
-# models.py
-from django.db import models
+from . import db
 
-class Group(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+class Group(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), unique=True, nullable=False)
 
-    def __str__(self):
-        return self.name
-
-class Server(models.Model):
-    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='servers')
-    server_name = models.CharField(max_length=100)
-    dc_name = models.CharField(max_length=100)
-    public_ip = models.GenericIPAddressField()
-    private_ip = models.GenericIPAddressField()
-
-    def __str__(self):
-        return f"{self.server_name} - {self.public_ip}"
+class IP(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    server_name = db.Column(db.String(100), nullable=False)
+    ip_public = db.Column(db.String(100), nullable=False)
+    ip_private = db.Column(db.String(100), nullable=False)
+    dc = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.Text)
+    group_id = db.Column(db.Integer, db.ForeignKey('group.id'))
