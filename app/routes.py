@@ -1,5 +1,7 @@
+# app/routes.py
+
 from flask import Blueprint, render_template, request, redirect, url_for
-from .models import Group, IP
+from .models import Group, IP  # وارد کردن مدل‌ها بعد از ایجاد db
 from . import db
 from .utils import validate_ip
 
